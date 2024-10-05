@@ -29,10 +29,9 @@ public class GameManager : MonoBehaviour
         }
         state = GameStates.MENU;
     }
-    public void StartPlaying(int level)
+    public void StartPlaying()
     {
         state = GameStates.PLAYING;
-        currentLevel=Instantiate(levelPrefabs[level]);
     }
     public void Pause()
     {

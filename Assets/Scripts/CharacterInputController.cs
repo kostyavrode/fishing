@@ -15,6 +15,10 @@ public class CharacterInputController : MonoBehaviour {
     private float forwardSpeedLimit = 1f;
 
 
+    [Header("Joysticks")]
+    public Joystick moveJoy;
+    public Joystick rotateJoy;
+
     public float Forward
     {
         get;
@@ -46,8 +50,11 @@ public class CharacterInputController : MonoBehaviour {
         if ((GameManager.instance.state == GameStates.PLAYING))
         {
             // GetAxisRaw() so we can do filtering here instead of the InputManager
-            float h = Input.GetAxisRaw("Horizontal");// setup h variable as our horizontal input axis
-            float v = Input.GetAxisRaw("Vertical"); // setup v variables as our vertical input axis
+            //float h = Input.GetAxisRaw("Horizontal");// setup h variable as our horizontal input axis
+            //float v = Input.GetAxisRaw("Vertical"); // setup v variables as our vertical input axis
+
+            float h = moveJoy.Horizontal;
+            float v= moveJoy.Vertical;
 
             if (InputMapToCircular)
             {

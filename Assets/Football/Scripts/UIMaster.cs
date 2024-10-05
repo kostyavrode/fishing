@@ -61,7 +61,7 @@ public class UIMaster : MonoBehaviour
     }
     public void StartGame(int level)
     {
-        GameManager.instance.StartPlaying(level);
+       // GameManager.instance.StartPlaying(level);
     }
     public void RestartGame()
     {

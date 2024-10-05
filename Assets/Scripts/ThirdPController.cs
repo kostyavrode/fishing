@@ -40,13 +40,18 @@ public class ThirdPController : MonoBehaviour
     public bool isFishing = false;
     public bool isReeling = false;
 
+    [Header("Joysticks")]
+    public Joystick moveJoy;
+    public Joystick rotateJoy;
+
     // fishing objects
     public GameObject fishingRod;
+    public GameObject[] objectToDeactivate;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked; // lock the cursor to the center of the screen.
+       // Cursor.lockState = CursorLockMode.Locked; // lock the cursor to the center of the screen.
         cinput = GetComponent<CharacterInputController>();
         animator.SetBool("startFishing", false);
         fishingRod.SetActive(false);
@@ -75,6 +80,10 @@ public class ThirdPController : MonoBehaviour
                     animator.SetBool("startFishing", true);
                     isFishing = true;
                     fishingRod.SetActive(true);
+                    foreach (GameObject obj in objectToDeactivate)
+                    {
+                        obj.SetActive(true);
+                    }
                 }
                 // Stop fishing
                 else if (isFishing && !alreadyCast && !isReeling)
@@ -82,6 +91,10 @@ public class ThirdPController : MonoBehaviour
                     animator.SetBool("startFishing", false);
                     isFishing = false;
                     fishingRod.SetActive(false);
+                    foreach (GameObject obj in objectToDeactivate)
+                    {
+                        obj.SetActive(false);
+                    }
                 }
             }
 
@@ -119,9 +132,10 @@ public class ThirdPController : MonoBehaviour
                 _inputForward = cinput.Forward;
                 _inputTurn = cinput.Turn;
             }
-            float horizontal = Input.GetAxisRaw("Horizontal");
-            float vertical = Input.GetAxisRaw("Vertical");
-
+            //float horizontal = Input.GetAxisRaw("Horizontal");
+            //float vertical = Input.GetAxisRaw("Vertical");
+            float vertical = moveJoy.Vertical;
+            float horizontal = moveJoy.Horizontal;
             var animState = animator.GetCurrentAnimatorStateInfo(0);
             // animator.SetFloat("velX", _inputTurn);
 
