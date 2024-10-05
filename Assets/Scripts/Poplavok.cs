@@ -23,16 +23,21 @@ public class Poplavok : MonoBehaviour
     }
     private void Update()
     {
-        if (isNeedToForce)
+        if ((GameManager.instance.state == GameStates.PLAYING))
         {
-            rb.AddForce(playerTransform.forward * 150);
-            wastedTime += Time.deltaTime;
-            if (wastedTime> timeToAddForce )
+
+
+            if (isNeedToForce)
             {
-                isNeedToForce = false;
-                wastedTime = 0;
-                rb.isKinematic = true;
-                StartCoroutine(WaitToLyunylo(Random.Range(1, 3)));
+                rb.AddForce(playerTransform.forward * 150);
+                wastedTime += Time.deltaTime;
+                if (wastedTime > timeToAddForce)
+                {
+                    isNeedToForce = false;
+                    wastedTime = 0;
+                    rb.isKinematic = true;
+                    StartCoroutine(WaitToLyunylo(Random.Range(1, 3)));
+                }
             }
         }
     }

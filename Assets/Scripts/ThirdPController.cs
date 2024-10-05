@@ -54,55 +54,60 @@ public class ThirdPController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        // Debug.Log(controller.isGrounded);
-        if (controller.isGrounded && playerVelocity.y < 0) {
-             animator.SetBool("isGrounded", true);
-            // todo: add jumping and landing animation
-            // animator.SetBool("isJumping", false);
-            // animator.SetBool("isFalling", false);
-            playerVelocity.y = 0f;
-            playerVelocity.x = 0f;
-            playerVelocity.z = 0f;
-        }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (GameManager.instance.state == GameStates.PLAYING)
         {
-            // Start fishing
-            if (!isFishing)
+            // Debug.Log(controller.isGrounded);
+            if (controller.isGrounded && playerVelocity.y < 0)
             {
-                animator.SetBool("startFishing", true);
-                isFishing = true;
-                fishingRod.SetActive(true);
+                animator.SetBool("isGrounded", true);
+                // todo: add jumping and landing animation
+                // animator.SetBool("isJumping", false);
+                // animator.SetBool("isFalling", false);
+                playerVelocity.y = 0f;
+                playerVelocity.x = 0f;
+                playerVelocity.z = 0f;
             }
-            // Stop fishing
-            else if (isFishing && !alreadyCast && !isReeling)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                animator.SetBool("startFishing", false);
-                isFishing = false;
-                fishingRod.SetActive(false);
+                // Start fishing
+                if (!isFishing)
+                {
+                    animator.SetBool("startFishing", true);
+                    isFishing = true;
+                    fishingRod.SetActive(true);
+                }
+                // Stop fishing
+                else if (isFishing && !alreadyCast && !isReeling)
+                {
+                    animator.SetBool("startFishing", false);
+                    isFishing = false;
+                    fishingRod.SetActive(false);
+                }
             }
-        }
 
-        // Cast the Fishing Rod
-        else if (Input.GetMouseButtonDown(0) && isFishing && !alreadyCast && !isReeling)
-        {
-            animator.SetTrigger("cast");
-            alreadyCast = true;
-        }
+            // Cast the Fishing Rod
+            else if (Input.GetMouseButtonDown(0) && isFishing && !alreadyCast && !isReeling)
+            {
+                animator.SetTrigger("cast");
+                alreadyCast = true;
+            }
 
-        // Reel in the Fishing Rod
-        if (Input.GetKeyDown(KeyCode.Q) && isFishing && alreadyCast && !isReeling)
-        {
-            animator.SetTrigger("reel");
-            isReeling = true;
-        }
-        
-        // Check if the Reel In animation is done playing
-        if (isReeling)
-        {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            if (!stateInfo.IsName("Reel In")) {
-                alreadyCast = false;
-                isReeling = false;
+            // Reel in the Fishing Rod
+            if (Input.GetKeyDown(KeyCode.Q) && isFishing && alreadyCast && !isReeling)
+            {
+                animator.SetTrigger("reel");
+                isReeling = true;
+            }
+
+            // Check if the Reel In animation is done playing
+            if (isReeling)
+            {
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                if (!stateInfo.IsName("Reel In"))
+                {
+                    alreadyCast = false;
+                    isReeling = false;
+                }
             }
         }
         

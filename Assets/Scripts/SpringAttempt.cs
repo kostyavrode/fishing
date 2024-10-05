@@ -28,20 +28,23 @@ public class SpringAttempt : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Apply forces from the first segment to the last
-        for (int i = 0; i < points.Count - 1; i++)
+        if ((GameManager.instance.state == GameStates.PLAYING))
         {
-            ApplySpringForce(i, i + 1, SegmentLength);
-        }
-        // Apply forces from the last segment to the first
-        for (int i = points.Count - 2; i >= 0; i--)
-        {
-            ApplySpringForce(i, i + 1, SegmentLength);
-        }
+            // Apply forces from the first segment to the last
+            for (int i = 0; i < points.Count - 1; i++)
+            {
+                ApplySpringForce(i, i + 1, SegmentLength);
+            }
+            // Apply forces from the last segment to the first
+            for (int i = points.Count - 2; i >= 0; i--)
+            {
+                ApplySpringForce(i, i + 1, SegmentLength);
+            }
 
-        points[0] = StartPoint.position;
-        points[points.Count - 1] = EndPoint.position;
-        lineRenderer.SetPositions(points.ToArray());
+            points[0] = StartPoint.position;
+            points[points.Count - 1] = EndPoint.position;
+            lineRenderer.SetPositions(points.ToArray());
+        }
     }
 
     void ApplySpringForce(int index1, int index2, float segLength)

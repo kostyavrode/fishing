@@ -48,31 +48,34 @@ public class VerletLine : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {   
-            // Cast out the line
-            // A generic delay because I don't know the timing of casting out a fishing line and when that line comes out
-            // I'm assuming at the peak of the cast, idk
-            StartCoroutine(IncreaseLengthAfterDelay(Delay));
-
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        if ((GameManager.instance.state == GameStates.PLAYING))
         {
-            // Reel In
-            currentTargetLength = startSegmentLength;
-            isChangingLength = true;
-            poplavok.rb.isKinematic = false;
-        }
-
-        if (isChangingLength)
-        {
-            SegmentLength = Mathf.Lerp(SegmentLength, currentTargetLength, LerpSpeed * Time.deltaTime);
-
-            // Stop changing the line length when it's close enough to the min
-            if (Mathf.Abs(SegmentLength - currentTargetLength) < 0.01f)
+            if (Input.GetMouseButtonDown(0))
             {
-                SegmentLength = currentTargetLength;
-                isChangingLength = false;
+                // Cast out the line
+                // A generic delay because I don't know the timing of casting out a fishing line and when that line comes out
+                // I'm assuming at the peak of the cast, idk
+                StartCoroutine(IncreaseLengthAfterDelay(Delay));
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                // Reel In
+                currentTargetLength = startSegmentLength;
+                isChangingLength = true;
+                poplavok.rb.isKinematic = false;
+            }
+
+            if (isChangingLength)
+            {
+                SegmentLength = Mathf.Lerp(SegmentLength, currentTargetLength, LerpSpeed * Time.deltaTime);
+
+                // Stop changing the line length when it's close enough to the min
+                if (Mathf.Abs(SegmentLength - currentTargetLength) < 0.01f)
+                {
+                    SegmentLength = currentTargetLength;
+                    isChangingLength = false;
+                }
             }
         }
     }
