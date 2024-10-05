@@ -60,7 +60,8 @@ public class ThirdPController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (GameManager.instance.state == GameStates.PLAYING)
         {
             // Debug.Log(controller.isGrounded);
@@ -124,45 +125,76 @@ public class ThirdPController : MonoBehaviour
                     isReeling = false;
                 }
             }
-        }
-        
-        // If the player isn't fishing, then they can move
-        if (!isFishing)
-        {
-            if (cinput.enabled)
+
+
+            // If the player isn't fishing, then they can move
+            if (!isFishing)
             {
-                _inputForward = cinput.Forward;
-                _inputTurn = cinput.Turn;
-            }
-            //float horizontal = Input.GetAxisRaw("Horizontal");
-            //float vertical = Input.GetAxisRaw("Vertical");
-            float vertical = moveJoy.Vertical;
-            float horizontal = moveJoy.Horizontal;
-            var animState = animator.GetCurrentAnimatorStateInfo(0);
-            // animator.SetFloat("velX", _inputTurn);
-
-            // absolute value of _inputForward and _inputTurn
-            _inputForward = Mathf.Abs(_inputForward);
-            _inputTurn = Mathf.Abs(_inputTurn);
-            targetVelY = Mathf.Max(_inputForward, _inputTurn);
-            Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
-            if (direction.magnitude >= 0.1f) // if no input, stop applying movement
-            {
-                // movement and also handles jumping while moving
-                // this section might need to be moved to a new function and changed if bhop or other movement mechanics are added.
-
-                // calc the angle between the player's input direction and the positive x-axis.
-                // the angle is then used to rotate the player's game object so that it faces the direction of movement.
-                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
-                // smoothly rotate the player's game object to face the direction of movement.
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothingVelocity, turnSmoothingTime);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-                Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-
-                // if Jumping while moving
-                if (controller.isGrounded)
+                if (cinput.enabled)
                 {
+                    _inputForward = cinput.Forward;
+                    _inputTurn = cinput.Turn;
+                }
+                //float horizontal = Input.GetAxisRaw("Horizontal");
+                //float vertical = Input.GetAxisRaw("Vertical");
+                float vertical = moveJoy.Vertical;
+                float horizontal = moveJoy.Horizontal;
+                var animState = animator.GetCurrentAnimatorStateInfo(0);
+                // animator.SetFloat("velX", _inputTurn);
+
+                // absolute value of _inputForward and _inputTurn
+                _inputForward = Mathf.Abs(_inputForward);
+                _inputTurn = Mathf.Abs(_inputTurn);
+                targetVelY = Mathf.Max(_inputForward, _inputTurn);
+                Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+                if (direction.magnitude >= 0.1f) // if no input, stop applying movement
+                {
+                    // movement and also handles jumping while moving
+                    // this section might need to be moved to a new function and changed if bhop or other movement mechanics are added.
+
+                    // calc the angle between the player's input direction and the positive x-axis.
+                    // the angle is then used to rotate the player's game object so that it faces the direction of movement.
+                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
+                    // smoothly rotate the player's game object to face the direction of movement.
+                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothingVelocity, turnSmoothingTime);
+                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                    Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+
+                    // if Jumping while moving
+                    if (controller.isGrounded)
+                    {
+                        if (bhopEnabled)
+                        {
+                            if (Input.GetButton("Jump"))
+                            {
+                                Jump();
+                            }
+                        }
+                        else
+                        {
+                            if (Input.GetButtonDown("Jump"))
+                            {
+                                Jump();
+                            }
+                        }
+                        // player cannot "run" while in the air
+                        // if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                        // {
+                        //     currentSpeed = runSpeed;
+                        // }
+                        // else
+                        // {
+                        //     currentSpeed = speed;
+                        // }
+                        currentSpeed = speed;
+                    }
+                    // current speed is preserved while in the air
+                    controller.Move(moveDirection * currentSpeed * Time.deltaTime);
+                }
+                else if (controller.isGrounded)
+                {
+                    // jumping in place
                     if (bhopEnabled)
                     {
                         if (Input.GetButton("Jump"))
@@ -177,42 +209,12 @@ public class ThirdPController : MonoBehaviour
                             Jump();
                         }
                     }
-                    // player cannot "run" while in the air
-                    // if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                    // {
-                    //     currentSpeed = runSpeed;
-                    // }
-                    // else
-                    // {
-                    //     currentSpeed = speed;
-                    // }
-                    currentSpeed = speed;
                 }
-                // current speed is preserved while in the air
-                controller.Move(moveDirection * currentSpeed * Time.deltaTime);
+                currentVelY = Mathf.Lerp(currentVelY, targetVelY, speedChangeRate);
+                animator.SetFloat("velY", currentVelY);
+                playerVelocity.y += gravityFactor * gravity * Time.deltaTime;
+                controller.Move(playerVelocity * Time.deltaTime);
             }
-            else if (controller.isGrounded)
-            {
-                // jumping in place
-                if (bhopEnabled)
-                {
-                    if (Input.GetButton("Jump"))
-                    {
-                        Jump();
-                    }
-                }
-                else
-                {
-                    if (Input.GetButtonDown("Jump"))
-                    {
-                        Jump();
-                    }
-                }
-            }
-            currentVelY = Mathf.Lerp(currentVelY, targetVelY, speedChangeRate);
-            animator.SetFloat("velY", currentVelY);
-            playerVelocity.y += gravityFactor * gravity * Time.deltaTime;
-            controller.Move(playerVelocity * Time.deltaTime);
         }
     }
 

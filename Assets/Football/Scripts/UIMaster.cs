@@ -21,6 +21,8 @@ public class UIMaster : MonoBehaviour
     public TMP_Text cupsText;
     public TMP_Text[] moneyBars;
 
+    public GameObject shopButton;
+
     public GameObject[] panels;
 
     //public Joystick joy;
@@ -38,6 +40,10 @@ public class UIMaster : MonoBehaviour
         {
             money.text = PlayerPrefs.GetInt("Money").ToString();
         }
+    }
+    public void ShowShopButton(bool state)
+    {
+        shopButton.SetActive(state);
     }
     public void ShowCups()
     {
@@ -67,6 +73,14 @@ public class UIMaster : MonoBehaviour
     {
         GameManager.instance.Restart();
     }
+
+    public void AddFish()
+    {
+        PlayerPrefs.SetInt("Cups", PlayerPrefs.GetInt("Cups") + 1);
+        PlayerPrefs.Save();
+        ShowCups();
+    }
+
     public void EndGame(bool isWin)
     {
         panels[1].SetActive(false);

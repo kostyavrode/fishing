@@ -79,6 +79,7 @@ public class VerletLine : MonoBehaviour
                 {
                     SegmentLength = currentTargetLength;
                     isChangingLength = false;
+                    UIMaster.instance.AddFish();
                 }
             }
         }
