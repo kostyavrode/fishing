@@ -24,6 +24,8 @@ public class VerletLine : MonoBehaviour
     public float Delay = 3f;
     private bool isChangingLength = false;
 
+    public Poplavok poplavok;
+
     // Represents a segment of the line.
     private class LineParticle
     {
@@ -59,6 +61,7 @@ public class VerletLine : MonoBehaviour
             // Reel In
             currentTargetLength = startSegmentLength;
             isChangingLength = true;
+            poplavok.rb.isKinematic = false;
         }
 
         if (isChangingLength)
@@ -77,6 +80,8 @@ public class VerletLine : MonoBehaviour
     private IEnumerator IncreaseLengthAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
+        //poplavok.GetComponent<Rigidbody>().AddForce(poplavok.transform.forward*100);
+        poplavok.AddForce();
         currentTargetLength = maxSegmentLength;
         isChangingLength = true;
     }
