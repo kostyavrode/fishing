@@ -46,6 +46,10 @@ public class VerletLine : MonoBehaviour
         }
         lineRenderer.positionCount = particles.Count;
     }
+    public void StartCorout()
+    {
+        StartCoroutine(IncreaseLengthAfterDelay(Delay));
+    }
     void Update()
     {
         if ((GameManager.instance.state == GameStates.PLAYING))
@@ -55,7 +59,7 @@ public class VerletLine : MonoBehaviour
                 // Cast out the line
                 // A generic delay because I don't know the timing of casting out a fishing line and when that line comes out
                 // I'm assuming at the peak of the cast, idk
-                StartCoroutine(IncreaseLengthAfterDelay(Delay));
+                //StartCoroutine(IncreaseLengthAfterDelay(Delay));
 
             }
             else if (Input.GetKeyDown(KeyCode.Q))
@@ -79,7 +83,12 @@ public class VerletLine : MonoBehaviour
             }
         }
     }
-
+    public void StartReeling()
+    {
+        currentTargetLength = startSegmentLength;
+        isChangingLength = true;
+        poplavok.rb.isKinematic = false;
+    }
     private IEnumerator IncreaseLengthAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);

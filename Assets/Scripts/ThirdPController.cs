@@ -40,6 +40,8 @@ public class ThirdPController : MonoBehaviour
     public bool isFishing = false;
     public bool isReeling = false;
 
+    public VerletLine verletLine;
+
     [Header("Joysticks")]
     public Joystick moveJoy;
     public Joystick rotateJoy;
@@ -99,11 +101,11 @@ public class ThirdPController : MonoBehaviour
             }
 
             // Cast the Fishing Rod
-            else if (Input.GetMouseButtonDown(0) && isFishing && !alreadyCast && !isReeling)
-            {
-                animator.SetTrigger("cast");
-                alreadyCast = true;
-            }
+            //else if (Input.GetMouseButtonDown(0) && isFishing && !alreadyCast && !isReeling)
+            //{
+            //    animator.SetTrigger("cast");
+            //    alreadyCast = true;
+            //}
 
             // Reel in the Fishing Rod
             if (Input.GetKeyDown(KeyCode.Q) && isFishing && alreadyCast && !isReeling)
@@ -211,6 +213,51 @@ public class ThirdPController : MonoBehaviour
             animator.SetFloat("velY", currentVelY);
             playerVelocity.y += gravityFactor * gravity * Time.deltaTime;
             controller.Move(playerVelocity * Time.deltaTime);
+        }
+    }
+
+    public void Throw()
+    {
+        if (isFishing && !alreadyCast && !isReeling)
+        {
+            animator.SetTrigger("cast");
+            alreadyCast = true;
+            verletLine.StartCorout();
+            //verletLine.StartCoroutine(verletLine.IncreaseLengthAfterDelay(Delay));
+        }
+    }
+    public void StartReel()
+    {
+        if (isFishing && alreadyCast && !isReeling)
+        {
+            animator.SetTrigger("reel");
+            isReeling = true;
+            verletLine.StartReeling();
+        }
+    }
+    public void StartFisghing()
+    {
+        // Start fishing
+        if (!isFishing)
+        {
+            animator.SetBool("startFishing", true);
+            isFishing = true;
+            fishingRod.SetActive(true);
+            foreach (GameObject obj in objectToDeactivate)
+            {
+                obj.SetActive(true);
+            }
+        }
+        // Stop fishing
+        else if (isFishing && !alreadyCast && !isReeling)
+        {
+            animator.SetBool("startFishing", false);
+            isFishing = false;
+            fishingRod.SetActive(false);
+            foreach (GameObject obj in objectToDeactivate)
+            {
+                obj.SetActive(false);
+            }
         }
     }
 

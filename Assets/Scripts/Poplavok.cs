@@ -45,6 +45,10 @@ public class Poplavok : MonoBehaviour
     {
         isNeedToForce = true;
     }
+    public void UpPoplavok()
+    {
+        transform.DOMoveY(transform.position.y + 1, 0.5f);
+    }
     private void Klyunylo()
     {
         //rb.isKinematic = false;
