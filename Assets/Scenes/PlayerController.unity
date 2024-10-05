@@ -1521,8 +1521,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1071879028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.043972816, y: 0, z: 0, w: 0.99903274}
-  m_LocalPosition: {x: 0, y: 2, z: -8}
+  m_LocalRotation: {x: -0.14073864, y: 0.4707235, z: -0.07635637, w: -0.86762995}
+  m_LocalPosition: {x: 11.471604, y: 5.01217, z: 3.4954495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1570,7 +1570,7 @@ MonoBehaviour:
   Iterations: 1000
   tensionConstant: 1000
   SecondHasRigidbody: 1
-  LerpSpeed: 1.5
+  LerpSpeed: 1
   Delay: 2.6
   poplavok: {fileID: 1721393594}
 --- !u!120 &1081114341
@@ -1949,7 +1949,7 @@ PrefabInstance:
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
     - target: {fileID: 4650219360832785345, guid: 0cca1dd45a28313408f5fc26a97e19bf, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4997284406282374591, guid: 0cca1dd45a28313408f5fc26a97e19bf, type: 3}
       propertyPath: m_fontAsset

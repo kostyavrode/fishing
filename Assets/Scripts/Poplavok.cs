@@ -16,6 +16,7 @@ public class Poplavok : MonoBehaviour
     private bool isKlyuet;
 
     private bool isNeedToForce;
+    private bool isNeedToResist;
     private void Awake()
     {
         if (rb==null)
@@ -39,6 +40,18 @@ public class Poplavok : MonoBehaviour
                     StartCoroutine(WaitToLyunylo(Random.Range(1, 3)));
                 }
             }
+            else if ((isNeedToResist))
+            {
+                {
+                    rb.AddForce(playerTransform.forward * 15);
+                    wastedTime += Time.deltaTime;
+                    if (wastedTime > timeToAddForce)
+                    {
+                        isNeedToResist = false;
+                        wastedTime = 0;
+                    }
+                }
+            }
         }
     }
     public void AddForce()
@@ -47,13 +60,17 @@ public class Poplavok : MonoBehaviour
     }
     public void UpPoplavok()
     {
-        transform.DOMoveY(transform.position.y + 1, 0.5f);
+        transform.DOMoveY(transform.position.y + 0.3f, 0.5f);
+    }
+    public void Resist()
+    {
+        isNeedToResist = true;
     }
     private void Klyunylo()
     {
         //rb.isKinematic = false;
         fish.SetActive(true);
-        transform.DOMoveY(transform.position.y - 1, 0.5f);
+        transform.DOMoveY(transform.position.y - 0.3f, 0.5f);
         //transform.position=new Vector3(transform.position.x,transform.position.y-)
     }
     private IEnumerator WaitToLyunylo(float time)

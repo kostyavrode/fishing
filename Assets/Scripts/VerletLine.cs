@@ -88,6 +88,7 @@ public class VerletLine : MonoBehaviour
         currentTargetLength = startSegmentLength;
         isChangingLength = true;
         poplavok.rb.isKinematic = false;
+        poplavok.Resist();
     }
     private IEnumerator IncreaseLengthAfterDelay(float delay)
     {
