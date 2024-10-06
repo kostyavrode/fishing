@@ -21,6 +21,8 @@ public class UIMaster : MonoBehaviour
     public TMP_Text cupsText;
     public TMP_Text[] moneyBars;
 
+    public TMP_Text taskText;
+
     public GameObject shopButton;
     public GameObject sellFishButton;
 
@@ -41,6 +43,10 @@ public class UIMaster : MonoBehaviour
         {
             money.text = PlayerPrefs.GetInt("Money").ToString();
         }
+    }
+    public void ShoTaskComplete(string i)
+    {
+        taskText.text = "catch 10 fish (" + i + "/10)";
     }
     public void ShowShopButton(bool state)
     {
@@ -77,8 +83,10 @@ public class UIMaster : MonoBehaviour
 
     public void AddFish()
     {
+        
         PlayerPrefs.SetInt("Cups", PlayerPrefs.GetInt("Cups") + 1);
         PlayerPrefs.Save();
+        ShoTaskComplete(PlayerPrefs.GetInt("Cups").ToString());
         ShowCups();
     }
 
