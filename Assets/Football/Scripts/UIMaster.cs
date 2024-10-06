@@ -22,6 +22,7 @@ public class UIMaster : MonoBehaviour
     public TMP_Text[] moneyBars;
 
     public GameObject shopButton;
+    public GameObject sellFishButton;
 
     public GameObject[] panels;
 
@@ -81,6 +82,21 @@ public class UIMaster : MonoBehaviour
         ShowCups();
     }
 
+    public void ShowSellFishButton(bool state)
+    {
+        sellFishButton.SetActive(state);
+    }
+    public void SellFishButton()
+    {
+        if (PlayerPrefs.GetInt("Cups")>0)
+        {
+            PlayerPrefs.SetInt("Cups", PlayerPrefs.GetInt("Cups") - 1);
+            PlayerPrefs.SetInt("Money", PlayerPrefs.GetInt("Money")+10);
+            PlayerPrefs.Save();
+            UpdateMoney();
+            ShowCups();
+        }
+    }
     public void EndGame(bool isWin)
     {
         panels[1].SetActive(false);

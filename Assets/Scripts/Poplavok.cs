@@ -8,6 +8,8 @@ public class Poplavok : MonoBehaviour
 
     public Transform playerTransform;
 
+    public MeshRenderer renderer;
+
     public GameObject fish;
 
     public float timeToAddForce;
@@ -26,8 +28,6 @@ public class Poplavok : MonoBehaviour
     {
         if ((GameManager.instance.state == GameStates.PLAYING))
         {
-
-
             if (isNeedToForce)
             {
                 rb.AddForce(playerTransform.forward * 150);

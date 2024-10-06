@@ -24,6 +24,8 @@ public class VerletLine : MonoBehaviour
     public float Delay = 3f;
     private bool isChangingLength = false;
 
+    private int tt;
+
     public Poplavok poplavok;
 
     // Represents a segment of the line.
@@ -77,9 +79,14 @@ public class VerletLine : MonoBehaviour
                 // Stop changing the line length when it's close enough to the min
                 if (Mathf.Abs(SegmentLength - currentTargetLength) < 0.01f)
                 {
+                    tt += 1;
                     SegmentLength = currentTargetLength;
                     isChangingLength = false;
-                    UIMaster.instance.AddFish();
+                    if (tt==2)
+                    {
+                        UIMaster.instance.AddFish();
+                        tt = 0;
+                    }
                 }
             }
         }

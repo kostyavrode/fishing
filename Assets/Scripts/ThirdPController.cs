@@ -225,6 +225,8 @@ public class ThirdPController : MonoBehaviour
             animator.SetTrigger("cast");
             alreadyCast = true;
             verletLine.StartCorout();
+            verletLine.poplavok.fish.SetActive(false);
+            
             //verletLine.StartCoroutine(verletLine.IncreaseLengthAfterDelay(Delay));
         }
     }
@@ -242,6 +244,7 @@ public class ThirdPController : MonoBehaviour
         // Start fishing
         if (!isFishing)
         {
+            verletLine.poplavok.transform.position = this.transform.position + Vector3.up+transform.forward/2;
             animator.SetBool("startFishing", true);
             isFishing = true;
             fishingRod.SetActive(true);
