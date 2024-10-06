@@ -91,6 +91,10 @@ public class VerletLine : MonoBehaviour
             }
         }
     }
+    public void DEactivateAnim()
+    {
+        SegmentLength = 0.02f;
+    }
     public void StartReeling()
     {
         currentTargetLength = startSegmentLength;

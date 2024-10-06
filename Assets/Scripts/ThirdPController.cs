@@ -265,7 +265,21 @@ public class ThirdPController : MonoBehaviour
             }
         }
     }
-
+    public void DisableFishAnim()
+    {
+        animator.SetBool("startFishing", false);
+        isFishing = false;
+        alreadyCast = false;
+        isReeling = false;
+        verletLine.poplavok.rb.isKinematic = false;
+        verletLine.DEactivateAnim();
+        fishingRod.SetActive(false);
+        foreach (GameObject obj in objectToDeactivate)
+        {
+            obj.SetActive(false);
+        }
+        verletLine.poplavok.transform.position = this.transform.position + Vector3.up + transform.forward / 2;
+    }
     // Character Controller handles collision detection different. Make sure to read docs.
     // I don't believe it can detect triggers, so an alternative method would be creating an empty GameObject child
     // and then giving that child a collider (make sure it doesn't collide with Player) to detect triggers.
