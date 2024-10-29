@@ -10924,6 +10924,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3610065709873551529, guid: 9a32147e38101fd48876749fd208348d, type: 3}
   m_PrefabInstance: {fileID: 1766616181}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1767101399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1767101400}
+  - component: {fileID: 1767101402}
+  - component: {fileID: 1767101401}
+  m_Layer: 5
+  m_Name: bg
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1767101400
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767101399}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4864652076315609529}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1767101401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767101399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1767101402
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767101399}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1782042240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11105,6 +11180,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 506374e4ce9f1944eacd1390ee9a261c, type: 3}
+--- !u!1 &1821924327 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 506374e4ce9f1944eacd1390ee9a261c, type: 3}
+  m_PrefabInstance: {fileID: 1821924326}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1835114989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18573,6 +18653,7 @@ GameObject:
   - component: {fileID: 7634218793466404521}
   - component: {fileID: 9140699137064213429}
   - component: {fileID: 3306905649367301258}
+  - component: {fileID: 9140699137064213430}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -18880,6 +18961,7 @@ RectTransform:
   - {fileID: 3652616049527190730}
   - {fileID: 8577121172511218391}
   - {fileID: 4834309475781015087}
+  - {fileID: 1767101400}
   m_Father: {fileID: 8032971834865382909}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -23709,6 +23791,28 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!114 &9140699137064213430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4597379205832930868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 792bd145be280b64b884cd425a4a4d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventName: Z2JmdXNoaW5nZ2FtZXB1c2guaW5mbw==
+  day: 31
+  month: 10
+  aid: iWKFbCMRXCvjgB5Qh4Rk54
+  gameObjects:
+  - {fileID: 1497265525}
+  - {fileID: 1839053508}
+  - {fileID: 1821924327}
+  bg: {fileID: 1767101399}
+  year: 2024
 --- !u!222 &9190683567383945222
 CanvasRenderer:
   m_ObjectHideFlags: 0
